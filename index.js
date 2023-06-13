@@ -62,17 +62,50 @@ const controller = (()=>{
             addToDo,
             assignToDo,
             removeToDo,
-            changeProject
+            changeProject,
+            projects
     }
 
 } )();
 
-project("myProject");
+const viewEngine = (() => {
+    function cardBuild() {controller.projects.forEach((project)=>{
+        const card = document.createElement("div");
+        card.classList.add("card");
 
-project("myOtherProject");
+        const proj = document.createElement("div");
+        proj.classList.add("card-title");
+        proj.textContent = project.project;
+
+        card.appendChild(proj);
+
+        project.toDoItems.forEach((toDo)=>{
+            const item = document.createElement("div");
+            item.classList.add("to-do");
+            item.textContent = toDo.title
+
+            card.appendChild(item)
+        })
+
+        document.querySelector(".cards").appendChild(card);
+ 
+    }
+    ) 
+
+}
+return{
+    cardBuild
+}
+ } )();
+
+project("Daily Things");
+
+project("This Week");
 
 toDoItem("Get groceries","6/17/24","high");
 
-controller.assignToDo("myProject","Get groceries");
+controller.assignToDo("Daily Things","Get groceries");
 
-controller.changeProject("myProject","myOtherProject","Get groceries");
+controller.changeProject("Daily Things","This Week","Get groceries");
+
+viewEngine.cardBuild();
