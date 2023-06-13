@@ -1,3 +1,6 @@
+import './style.css';
+// import controller from './controller';
+
 const toDoItem = (title,dueDate,priority) => {
     controller.addToDo(title,dueDate,priority);
     return {
@@ -109,3 +112,15 @@ controller.assignToDo("Daily Things","Get groceries");
 controller.changeProject("Daily Things","This Week","Get groceries");
 
 viewEngine.cardBuild();
+
+let newProj = document.querySelector(".nav>.new-project")
+newProj.addEventListener("click", function(){
+    const addProj = document.querySelector(".add-project");
+    addProj.classList.toggle("hidden");
+
+});
+
+
+// document.getElementById("new-project").addEventListener("click", function(){
+//     controller.addProject(document.querySelector("#project-name").value);
+// });

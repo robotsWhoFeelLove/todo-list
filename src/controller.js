@@ -1,22 +1,4 @@
-const toDoItem = (title,dueDate,priority) => {
-    controller.addToDo(title,dueDate,priority);
-    return {
-        title : title,
-        dueDate : dueDate,
-        priority : priority
-    }
-}
-
-const project = (projectName) =>{
-    let toDoItems = [];
-    controller.addProject(projectName, toDoItems);
-    return {
-        project: projectName,
-        toDoItems:[],
-    }
-}
-
-const controller = (()=>{
+function controller(){
     let projects=[];
     let toDoItems=[];
 
@@ -66,46 +48,4 @@ const controller = (()=>{
             projects
     }
 
-} )();
-
-const viewEngine = (() => {
-    function cardBuild() {controller.projects.forEach((project)=>{
-        const card = document.createElement("div");
-        card.classList.add("card");
-
-        const proj = document.createElement("div");
-        proj.classList.add("card-title");
-        proj.textContent = project.project;
-
-        card.appendChild(proj);
-
-        project.toDoItems.forEach((toDo)=>{
-            const item = document.createElement("div");
-            item.classList.add("to-do");
-            item.textContent = toDo.title
-
-            card.appendChild(item)
-        })
-
-        document.querySelector(".cards").appendChild(card);
- 
-    }
-    ) 
-
-}
-return{
-    cardBuild
-}
- } )();
-
-project("Daily Things");
-
-project("This Week");
-
-toDoItem("Get groceries","6/17/24","high");
-
-controller.assignToDo("Daily Things","Get groceries");
-
-controller.changeProject("Daily Things","This Week","Get groceries");
-
-viewEngine.cardBuild();
+} export default controller
