@@ -45,7 +45,7 @@ body{
 
 
 .card{
-    width: 250px;
+    width: 300px;
     height: 250px;
     background-color: rgb(220, 219, 219);
     padding: 50px;
@@ -141,8 +141,15 @@ button{
 }
 
 .to-do{
-    cursor: move;
+    cursor: grab;
     height: 1.5rem;
+    display: flex;
+    /* gap: 10px; */
+    justify-content: space-between;
+}
+.to-do>input{
+    cursor: pointer;
+    width: 40px;
 }
 
 .over{
