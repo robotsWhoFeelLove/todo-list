@@ -1,3 +1,7 @@
+:root {
+    --blue: rgb(2, 140, 232);
+    --white: #ffffff;
+  }
 
 body{
     font-family: Arial, Helvetica, sans-serif;
@@ -25,7 +29,7 @@ body{
 .container{
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr 4fr;
     height: 80vh;
 }
 
@@ -46,19 +50,20 @@ body{
     background-color: rgb(220, 219, 219);
     padding: 50px;
     border-radius: 5px;
-    border-left: 10px solid rgb(4, 54, 154);
+    border-left: 10px solid var(--blue);
     box-shadow: 5px 5px 3px rgb(94, 93, 93);
 }
 .card-title{
-    text-decoration: underline rgb(4, 54, 154);
+    text-decoration: underline var(--blue);
     font-size: 20pt;
 }
-.add-project{
+.add-project,
+.add-to-do{
     position: absolute;
     height: 300px;
     width: 400px;
     background-color: white;
-    border: 3px solid rgb(4, 54, 154);
+    border: 3px solid var(--blue);
     margin: 25vh;
     z-index: 1;
     left: 0;
@@ -70,11 +75,17 @@ body{
     border-radius: 5px;
    
 }
-input[type="text"] {
+
+
+
+input[type="text"],
+input[type="date"]{
+    font-family: Arial, Helvetica, sans-serif;
     font-size:25px;
 }
 
-.add-project>form{
+.add-project>form,
+.add-to-do>form{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,27 +93,63 @@ input[type="text"] {
     width: 250px;
     margin-top: 40px;
     font-size: 22pt;
-    color:rgb(4, 54, 154);
+    color:var(--blue);
     font-weight: 600;
 }
-.add-project input{
+
+.check{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-to-do{
+    height: 450px;
+}
+
+.add-to-do>form{
+    font-size: 16pt;    
+}
+
+.add-project input,
+.add-to-do input{
     height: 40px;
     width: 300px;
     border-radius: 7px;
-    border: 2px solid rgb(4, 54, 154);
+    border: 2px solid var(--blue);
     background-color: rgb(220, 219, 219);
 
 }
+
+input[type="checkbox"]{
+    width: 100px;
+}
+
 button{
     width: 200px;
     height:60px;
     border-radius: 30px;
     border: none;
-    background-color: rgb(2, 140, 232);
+    background-color: var(--blue);
     color: white;
     font-size: 18pt;
 }
 
 .hidden{
     display: none;
+}
+
+.to-do{
+    cursor: move;
+    height: 1.5rem;
+}
+
+.over{
+    opacity: .6;
+}
+
+.to-do:hover{
+    font-weight: 800;
+    font-size: 17pt;
 }
