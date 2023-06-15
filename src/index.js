@@ -70,10 +70,20 @@ const controller = (()=>{
         saveAll();
     }
 
+    function removeProject(project){
+        let projIndex = projects.findIndex(obj => obj.project == project);
+        projects.splice(projIndex,1);
+        saveAll();
+    }
+
     function changeProject(oldProj,newProj,toDoItem){
         removeToDo(oldProj,toDoItem);
         assignToDo(newProj,toDoItem);
         saveAll();
+
+    }
+
+    function checkDueToday(){
 
     }
         return{
@@ -83,6 +93,7 @@ const controller = (()=>{
             removeToDo,
             changeProject,
             removeUnassigned,
+            removeProject,
             projects,
             toDoItems
     }
@@ -102,6 +113,9 @@ const viewEngine = (() => {
         controller.projects.forEach((project)=>{
         const card = document.createElement("div");
         card.classList.add("card");
+        const xOut = document.createElement("div");
+        xOut.classList.add("x-out");
+        xOut.textContent = "X";
         // card.addEventListener('dragenter', handleDragEnter);
         // card.addEventListener('dragleave', handleDragLeave);
         // card.addEventListener('drop', handleDrop);
@@ -113,8 +127,10 @@ const viewEngine = (() => {
         proj.textContent = project.project;
 
         card.appendChild(proj);
+        card.appendChild(xOut);
 
         project.toDoItems.forEach((toDo)=>{
+
             const item = document.createElement("div");
             item.classList.add("to-do");
             item.setAttribute('draggable', true);
@@ -124,6 +140,10 @@ const viewEngine = (() => {
             complete.setAttribute('type', 'checkbox');
             const dueDate = document.createElement('div');
             dueDate.textContent= toDo.dueDate;
+            if(toDo.priority) item.classList.add("priority");
+            item.classList.add(checkStatus(toDo.dueDate));
+
+            
             
             // item.addEventListener('dragstart', handleDragStart);
             // item.addEventListener('drop',handleDragEnd);
@@ -163,8 +183,10 @@ const viewEngine = (() => {
             toDoText.textContent = item
             const complete = document.createElement("input");
             complete.setAttribute('type', 'checkbox');
+            if(controller.toDoItems[toDoIndex].priority) toDo.classList.add("priority")
             const dueDate = document.createElement('div');
             dueDate.textContent= controller.toDoItems[toDoIndex].dueDate;
+           toDo.classList.add(checkStatus(dueDate.textContent));
             
             // item.addEventListener('dragstart', handleDragStart);
             // item.addEventListener('drop',handleDragEnd);
@@ -176,9 +198,46 @@ const viewEngine = (() => {
 
                document.querySelector(".sidebar").appendChild(toDo);
         }
+       
+
+        function flattenToday(){
+           let date = new Date();
+            date = "_" + date.getFullYear() + (date.getMonth()+1) + date.getDate();
+           date = date.replace("_","");
+            console.log(date)
+            return date;
+        }
+
+        function flattenDate(date){
+            let flatDate = date.replace("-0","",2);
+            flatDate = flatDate.replace("-","",2);
+            return flatDate;
+        }
+
+        function checkStatus(dueDate){
+            // const date = new Date();
+            let today = flattenToday();        //(date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate())
+         
+            // today = today.replaceAll("-","",2);
+            let checkDate;
+            if(dueDate){ 
+                checkDate = flattenDate(dueDate)
+            }
+            if(today == checkDate-1) return("yellow");
+            if(today > checkDate) return("red");
+            if(today <  checkDate-1) return("green");
+            if(today == checkDate) {
+                // dueToday = dueToday +1;
+                // document.querySelector(".due").textContent = dueToday;
+                return("dueToday")
+            }
+        }
+
         return{
             cardBuild,
-            newToDo
+            newToDo,
+            checkStatus,
+            // dueToday
         }
  } )();
 
@@ -195,6 +254,7 @@ const viewEngine = (() => {
 
 
  listener('dragenter',function handleDragEnter(e){
+    
     e.target.classList.add('over');
  });
  
@@ -207,9 +267,9 @@ const viewEngine = (() => {
  });
 
  listener('dragover', function(e){
-    // console.log(`Dragover : ${e}`);
+    // e.target.classList.toggle('over');
+    // e.target.classList.toggle('over');
     return e.preventDefault();
-
  });
 
  listener('dragstart',function handleDragStart(e){
@@ -254,7 +314,7 @@ const viewEngine = (() => {
 })();
 
 document.querySelector(".sidebar").onclick = function(ev){
-    if(ev.target.parentNode.classList == "to-do" && ev.target.checked){
+    if(ev.target.parentNode.classList.contains("to-do")&& ev.target.checked){
         controller.removeUnassigned(ev.target.parentNode.firstElementChild.textContent);
         viewEngine.cardBuild();
         
@@ -262,25 +322,36 @@ document.querySelector(".sidebar").onclick = function(ev){
 }
 
 document.querySelector(".cards").onclick = function(ev){
-    if(ev.target.parentNode.classList == "to-do" && ev.target.checked){
+    if(ev.target.classList.contains("x-out")){
+        controller.removeProject(ev.target.parentNode.firstElementChild.textContent);
+        ev.target.parentNode.classList.add("push");
+        setTimeout(()=>{
+            viewEngine.cardBuild()
+        },400);
+    }
+    if(ev.target.parentNode.classList.contains("to-do") && ev.target.checked){
         console.log(ev.target + ev.target.parentNode.textContent + ev.target.parentNode.parentNode.textContent)
         controller.removeToDo(ev.target.parentNode.parentNode.firstElementChild.textContent,ev.target.parentNode.firstElementChild.textContent);
-         viewEngine.cardBuild();
+        controller.removeUnassigned(ev.target.parentNode.firstElementChild.textContent); 
+        ev.target.parentNode.classList.add("shake")
+        setTimeout(()=>{
+            viewEngine.cardBuild()
+        }, 300);
     }
 }
 
 
-function parentText(el){
-    let text = "";
-for (let i = 0; i < el.childNodes.length; i++) {
-    let node = el.childNodes[i];
-    console.log({node})
-    if (node.nodeType  === Node.TEXT_NODE) {
-        text += node.data;
-    }
-}
-console.log("parent text is" +text);
-}
+// function parentText(el){
+//     let text = "";
+// for (let i = 0; i < el.childNodes.length; i++) {
+//     let node = el.childNodes[i];
+//     console.log({node})
+//     if (node.nodeType  === Node.TEXT_NODE) {
+//         text += node.data;
+//     }
+// }
+// console.log("parent text is" +text);
+// }
 
 // project("Daily Things");
 
@@ -315,7 +386,8 @@ document.getElementById("submit-project").addEventListener("click", function(){
 document.getElementById("submit-to-do").addEventListener("click", function(){
     toDoItem(document.querySelector("#to-do-name").value,
             document.querySelector("#to-do-date").value,
-            document.querySelector("#priority").value);
+            document.querySelector("#priority").checked)
+            viewEngine.checkStatus(document.querySelector("#to-do-date").value);
     showThing(".add-to-do");
     viewEngine.cardBuild();
     // viewEngine.newToDo(document.querySelector("#to-do-name").value);
