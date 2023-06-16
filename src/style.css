@@ -1,20 +1,23 @@
 :root {
-    --blue: rgb(2, 140, 232);
+    /* --blue: rgb(2, 140, 232); */
+    --blue: rgba(0, 168, 232,0.8);
     --white: #ffffff;
+    --otherblue: rgba(0, 52, 89, 0.8);
   }
 
 body{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15pt;
-    background-color: whitesmoke;
+    background-color: rgb(192, 189, 189 , .2);
     margin: 0;
 }
 .nav{
+    z-index: 1;
     grid-row: 1;
     /* display: flex;
     flex-direction: column;
     justify-content: space-around; */
-    background-color: var(--blue);
+    /* background-color: var(--blue); */
     /* background-color: rgb(41, 36, 34); */
     /* height: 10vh; */
     align-items: center;
@@ -22,45 +25,56 @@ body{
     color: var(--white);
     font-weight: 700;
     box-shadow: 0px 5px  rgb(94, 93, 93);
+    /* display: grid;
+    justify-items: center; */
+    margin: 81px;
 }
 
 .nav>div:hover{
     cursor: pointer;
 }
-.nav>div:first-letter{
+.nav>div:first-letter,
+.sidebar-title:first-letter{
     font-size: 170%;
+
     /* color: var(--blue); */
     /* color: rgb(195, 62, 36); */
+}
+
+.sidebar-title{
+    margin-left: 81px;
+    font-size: 18pt;
+    font-weight: 700;
 }
 
 .container{
     /* margin-top: 50px; */
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 26rem 4fr;
     height: 100vh;
 }
 .side-menu{
     display: grid;
-    grid-template-rows: 15rem 40rem;
-    background-color: var(--blue);
+    grid-template-rows: 15rem 20rem 3rem auto;
+    /* background-color: var(--blue); */
     color: white;
     font-size: 18pt;
     font-weight: 700;
 
 }
 
-.side-menu>:nth-child(1){
+/* .side-menu>:nth-child(1){
     align-self: end ;
     padding-left: 20px;
-    /* text-decoration: underline white; */
-}
+    /* text-decoration: underline white; 
+} */
 
 .sidebar{
 
-    background-color: var(--blue);
+    /* background-color: var(--blue); */
     color: white;
     padding: 20px;
-    grid-row: 2;
+    /* grid-row: 2; */
     font-size: 15pt;
 }
 .cards{
@@ -68,6 +82,8 @@ body{
     grid-template-columns: 1fr 1fr 1fr;
     padding:0 25px;
     margin-top: 20px;
+
+    /* grid-template-rows: repeat(3,clamp(300px, 25vh, 1000px)); */
 }
 
 
@@ -75,19 +91,24 @@ body{
 .card,
 .add-project,
 .add-to-do{
-    width: 300px;
-    height: 250px;
+    color: var(--otherblue);
+    width: 350px;
+    height: clamp(300px, 25vh, 1000px);
     background-color: rgb(247, 243, 243);
     /* background-color: white; */
-    padding: 50px;
+    padding: 25px;
+    padding-bottom: 75px;
     border-radius: 10px;
-    border-left: 10px solid var(--blue);
+    border-left: 10px solid var(--otherblue);
     /* box-shadow: 5px 5px 3px rgb(94, 93, 93); */
     box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45), 0 0 5px #aaa inset,inset 0 -3em 3em rgba(0, 0, 0, 0.1);
 }
 .card-title{
     text-decoration: underline var(--blue);
     font-size: 20pt;
+    font-weight: 800;
+    /* font-family: 'Libre Baskerville', serif; */
+    font-family: Arial, Helvetica, sans-serif;
 }
 .add-project,
 .add-to-do{
@@ -125,7 +146,7 @@ input[type="date"]{
     width: 250px;
     margin-top: 40px;
     font-size: 22pt;
-    color:var(--blue);
+    color:var(--otherblue);
     font-weight: 600;
 }
 
@@ -150,7 +171,7 @@ input[type="date"]{
     height: 40px;
     width: 300px;
     border-radius: 7px;
-    border: 2px solid var(--blue);
+    border: 2px solid var(--otherblue);
     background-color: rgb(220, 219, 219);
 
 }
@@ -162,7 +183,7 @@ button{
     height:50px;
     border-radius: 30px;
     border: none;
-    background-color: var(--blue);
+    background-color: var(--otherblue);
     color: white;
     font-size: 17pt;
     box-shadow:  4px 4px 4px -2px rgba(0, 0, 0, 0.8),
@@ -171,18 +192,98 @@ button{
 
 }
 
+.header{
+    position: relative;
+    padding-top: 30px;
+    padding-left: 200px;
+    /* display: flex;
+    gap: 40px;
+    align-items: center; */
+    height: 100px;
+    /* background-color: rgb(220, 219, 219); */
+    /* background-color: var(--otherblue); */
+    background-color: rgb(244, 242, 242);
+    border-bottom: 10px solid var(--otherblue) ;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-weight: 400;
+    font-size: 17pt;
+    font-style: italic;
+        text-shadow: 0px 3px 0px #b2a98f,
+    -10px -14px 10px rgba(0,0,0,0.15),
+    -10px -24px 2px rgba(0,0,0,0.1),
+    -10px -34px 30px rgba(0,0,0,0.1);
+
+ 
+    /* padding-bottom: 20px; */
+    color: var(--otherblue);
+    /* color: var(--blue); */
+    letter-spacing: .3rem;
+    word-spacing: 5rem;
+    box-shadow: inset 3px 0 rgba(255,255,255,0.9),
+       inset 0 -3px 0 rgba(207, 75, 4,.5); 
+        /* 0 0 5px #aaa inset,
+        inset -.5em 0 .5em rgba(0, 0, 0, 0.1); */
+        /* margin-bottom: 10px; */
+}
+.header>div{
+    position: absolute;
+    z-index: 1;
+}
+
+.header>div::first-letter{
+    letter-spacing: 1.7rem;
+    color: #003459;
+    font-family: cursive;
+    font-weight: 800;
+    font-size: 40pt;
+    text-shadow:    -10px -24px 0 rgba(207, 75, 4,.5);
+}
+
+.header>img{
+    position: absolute;
+    height: 100px;
+    left: 160px;
+    z-index: 0;
+    bottom: 7px;
+}
 .hidden{
     display: none;
 }
 
 .to-do{
+    /* display: flex;
+    align-items: center; */
+    display: grid;
+    gap: 2px;
+    grid-template-columns: 12rem 4rem 1rem;
+    align-items: center;
+    padding: 10px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border-radius: 15px;
+    border: 2px solid black;
     cursor: grab;
-    height: 1.5rem;
-    display: flex;
+    height: max(2.5rem,auto);
+    width: 20rem;
+    color: white;
+    /* display: flex; */
     /* gap: 10px; */
     justify-content: space-between;
-    margin-top: 10px;
+    margin: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    background-color: var(--otherblue);
+    box-shadow: inset 2px 2px 20px rgba(255, 255, 255, 0.4);
+    /* font-family: 'Libre Baskerville', serif; */
+    /* background-color: rgb(223, 220, 220);
+    box-shadow: inset 2px 2px 20px rgba(0, 0, 0, 0.3); */
 }
+
+/* .sidebar>.to-do{
+    background-color: var(--otherblue);
+    box-shadow: inset 2px 2px 20px rgba(255, 255, 255, 0.4);
+} */
+
 .to-do>input{
     cursor: pointer;
     width: 40px;
@@ -201,11 +302,36 @@ button{
     opacity: .6;
 }
 
+.due{
+    margin-top: 100px;
+    margin-left: 8rem;
+    font-size: 20pt;
+    cursor: pointer;
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    /* background-color: rgb(226, 226, 150); */
+
+}
+
+.due:active{
+    animation: pop 0.3s linear .3;
+}
+
+.menu-items{
+    z-index: 0;
+    margin-top: -50px;
+    background-image: url("./sticky.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    background-size: cover;
+    height: 26rem;
+}
 
 
 .to-do:hover{
-    font-weight: 800;
-    font-size: 17pt;
+font-weight: 600;
+    /* font-size: 17pt;  */
     animation: pop 0.3s linear .3;
 }
 
@@ -224,31 +350,49 @@ button{
 }
 
 input[type="checkbox"]{
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     box-shadow: inset 4px 4px 2px rgba(255,255,255,.9);
     border: 0;
     margin: 0;
     padding: 0;
+    border: 1px solid black;
 }
 
 .x-out{
     position: absolute;
-    margin-top: -65px;
-    margin-left: 290px;
+    margin-top: -50px;
+    margin-left: 330px;
     padding: 6px 10px;
     border-radius: 100%;
-    background-color: var(--blue);
+    background-color: var(--otherblue);
     color: white;
     border: 1px solid white;
     cursor: pointer;
     box-shadow: inset 0 3px 3px 2px rgba(0, 0, 0, 0.4),
         inset 0 0 7px 0 rgba(255,255,255,0.9);
 }
+
+button:selected{
+    animation: pulse 0.3s linear 1;
+}
+
+.sidebar>.priority,
+.card>.priority{
+    background-color: rgb(207, 75, 4);
+    color: white;
+    border: 0;
+}
+
 .yellow{
  
     background-color: rgb(255, 255, 0,.4);
 }
+
+.pulse{
+    animation: pulse 0.5s ease-in infinite;
+}
+
 #pulse:hover{
     animation: pulse 0.5s ease-in infinite;
   }
@@ -261,6 +405,25 @@ input[type="checkbox"]{
   #pop:hover{
     animation: pop 0.3s linear .3;
   }
+
+  .gradient-background {
+    background: linear-gradient(300deg, #00bfff, var(--otherblue), #ef8172);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+  }
+  
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
   @keyframes pulse{
     25%  {transform: scale(0.9);}
     75%  {transform: scale(1.1);}
@@ -271,6 +434,8 @@ input[type="checkbox"]{
   @keyframes pop{
     50%  {transform: scale(1.2);}
   }
+
+
 
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }

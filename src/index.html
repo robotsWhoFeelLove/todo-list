@@ -6,21 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300;400;500;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="add-project hidden">
     <form class="new-project" onsubmit="event.preventDefault()">
-    <label for="project-name">Project Name</label>
-    <input type="text" id="project-name" name="project-name">
+    <label for="project-name" >Project Name</label>
+    <input type="text" id="project-name" name="project-name" minlength="4" required>
     <button id="submit-project">Add Project</button>
     </form>
 </div>
 <div class="add-to-do hidden">
     <form class="new-to-do" onsubmit="event.preventDefault()">
     <label for="to-do-name">To Do</label>
-    <input type="text" id="to-do-name" name="to-do-name">
-    <label for="to-do-date">Date</label>
-    <input id="to-do-date" name="to-do-date" type="date">
+    <input type="text" id="to-do-name" name="to-do-name" minlength="4" required>
+    <label for="to-do-date" >Date</label>
+    <input id="to-do-date" name="to-do-date" type="date" required>
     <div class="check">
         <label for="priority">High Priority?</label>
         <input type="checkbox" name="priority" id="priority">
@@ -28,25 +40,33 @@
     <button id="submit-to-do">Add Item</button>
     </form>
 </div>
-<div class="header"></div>
+<div class="header">
+
+    <div>taskMaster</div></div>
 <div class="container">
 
-    <div class="side-menu">
+    <div class="side-menu gradient-background">
         <div class="nav">
-            <div class="home">Home</div>
+            <div class="home">Dashboard</div>
             <div class="new-project">+Project</div>
-            <div class="new-todo">+To Do</div>
+            <div class="new-todo">+To Do</div>         
         </div>
         <div class="menu-items">
-            <div>Unassigned To-Dos</div>
+            <div class="due">
+                <div>Due Today</div>
+                <div class="due-no"></div>
+            </div>
         </div>
+        <div class="sidebar-title">Unassigned</div> 
         <div class="sidebar">
-            
+               
         </div>
+
     </div>
     <div class="cards"></div>
 </div>
-<div class="due"></div>
+
+<a href="https://www.freepik.com/free-vector/yellow-adhesive-note_835397.htm#query=sticky%20note&position=4&from_view=search&track=ais">Image by Layerace</a> on Freepik
   <!-- <script src="./index.js"></script>   -->
 </body>
 </html>
